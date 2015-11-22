@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+    <!-- Place additional scripts for controller, directives, etc. here -->
+</head>
+<body ng-controller="monitorController">
+
+<script>
+    var app = app || angular.module('myApp', []);
+</script>
+<div google-chart="AnnotationChart" ng-model="dataModel.visual" trigger="activateChart"></div>
+<div google-chart="AnnotationChart" ng-model="dataModel.visual" trigger="activateChart"></div>
+
+<!-- Controllers -->
+<script src="../js/controllers/monitorController2.js"></script>
+
+<!-- Services -->
+<script src="../js/services/datosBD.js"></script>
+<script src="../js/util/utilCSV.js"></script>
+<script src="../js/directives/googleChart.js"></script>
+<script src="../js/directives/contextMenu.js"></script>
+<script src="../js/directives/loading.js"></script>
+</body>
+</html>

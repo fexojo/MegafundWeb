@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="css/main.css" rel="stylesheet"/>
+
+    <!--link rel="stylesheet" href="js/shared3/bootstrap.min.css">
+        <script src="js/shared3/jquery-1.11.3.min.js"></script>
+        <script src="js/shared3/bootstrap.min.js"></script>
+        <script	src="js/shared3/angular.min.js"></script-->
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+
+    <script src="//code.angularjs.org/1.2.19/i18n/angular-locale_es-es.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Test2 MegaFund Web</title>
+</head>
+
+<body ng-app="myApp" ng-controller="megafundController">
+<header>
+    <div class="container">
+        <div class="main row">
+            <!-- Menú -->
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed"
+                                data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1"
+                                aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span> <span
+                                class="icon-bar"></span> <span class="icon-bar"></span> <span
+                                class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"> <img
+                                alt="Añadir a Pantalla de Inicio" src="images/house_small.jpg"
+                                class="masterTooltip" title="Pantalla de Inicio">
+                        </a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse"
+                         id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Ranking <span
+                                    class="sr-only">(current)</span></a></li>
+                            <li><a href="#" class="masterTooltip"
+                                   title="Configuración de parámetros">Configuración</a></li>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                                    data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                    aria-expanded="false" class="masterTooltip"
+                                                    title="Monitor de acciones, carteras, fondos de inversión, ETF y planes de pensiones">Monitor<span
+                                    class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Renta 4</a></li>
+                                    <li><a href="#">SelfBank</a></li>
+                                    <li><a href="#">Tressis</a></li>
+                                    <li><a href="#">Inversis</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">ETF</a></li>
+                                    <li><a href="#">Indices</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input ng-model="buscarFondos.head1" type="text" class="form-control"
+                                       placeholder="Buscar por nombre o ISIN">
+                            </div>
+                        </form>
+                        <button type="button" class="btn btn-default navbar-btn">Ayuda</button>
+
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+            <!--
+            <div class="container col-md-3">Menu</div>
+            <div class="col-md-3">Buscador</div>
+            <div class="col-md-3">Botones</div>
+            <div class="col-md-3">Fecha e Informacion</div> -->
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="main row">
+        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <!-- Derecha -->
+            <div class="panel panel-default">
+                <!-- Grafica de valores -->
+                <div class="panel-heading" id="tituloGrafica">Gráfica de valores</div>
+                <div class="panel-body" style="width: 750px; height: 480px">
+                    <ann-chart data="chartData" title="{{chartTitle}}"
+                               width="{{chartWidth}}" height="{{chartHeight}}"></ann-chart>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <!-- Rentabilidades anuales -->
+                <div class="panel-heading">Rentabilidades anuales</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        {{ rentabilidades }}
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <td></td>
+                                <th ng-repeat="rentabilidad in rentabilidades">{{
+                                    rentabilidad.c}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Timing</th>
+                                <td ng-repeat="rentabilidad in rentabilidades"
+                                    ng-class="{comprar : rentabilidad.t < 0, vender : rentabilidad.t >= 0}">
+                                    {{ rentabilidad.t }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Fondo</th>
+                                <td ng-repeat="rentabilidad in rentabilidades"
+                                    ng-class="{comprar : rentabilidad.f < 0, vender : rentabilidad.f >= 0}">
+                                    {{ rentabilidad.f }}
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <!-- Tabla de Estadísticas -->
+                <div class="panel-heading">Tabla de Estadísticas</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <td></td>
+                                <th ng-repeat="rentabilidad in rentabilidades">{{
+                                    rentabilidad.c}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Timing</th>
+                                <td ng-repeat="rentabilidad in rentabilidades"
+                                    ng-class="{comprar : rentabilidad.t < 0, vender : rentabilidad.t >= 0}">
+                                    {{ rentabilidad.t }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Fondo</th>
+                                <td ng-repeat="rentabilidad in rentabilidades"
+                                    ng-class="{comprar : rentabilidad.f < 0, vender : rentabilidad.f >= 0}">
+                                    {{ rentabilidad.f }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <aside class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <!-- Izquierda -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <button type="button" class="btn btn-default" ng-click="activarTabla(0)">Trading</button>
+                    <button type="button" class="btn btn-default" ng-click="activarTabla(1)">Historico</button>
+                    <button type="button" class="btn btn-default" ng-click="activarTabla(2)">Componentes</button>
+                    <button type="button" class="btn btn-default" ng-click="activarTabla(3)">Evolucion</button>
+                    <button type="button" class="btn btn-default" ng-click="activarTabla(4)">Estadistica</button>
+                </div>
+                <div class="panel-body">
+                    <table ng-show="checktableShow(1)" class="table table-bordered table-hover">
+                        <tr>
+                            <th><a href="">Fecha</a></th>
+                            <th><a href="">VL</a></th>
+                            <th><a href="">Fondo</a></th>
+                            <th><a href="">M. M&oacute;vil</a></th>
+                            <th><a href="">Timing</a></th>
+                            <th><a href="">C/V</a></th>
+                            <th><a href="">Marg</a></th>
+                            <th><a href="">Mom</a></th>
+                            <th><a href="">F/mes</a></th>
+                            <th><a href="">T/mes</a></th>
+                        </tr>
+                        <tr>
+                            <td>Fecha</td>
+                            <td>VL</td>
+                            <td>Fondo</td>
+                            <td>M. M&oacute;vil</td>
+                            <td>Timing</td>
+                            <td>C/V</td>
+                            <td>Marg</td>
+                            <td>Mom</td>
+                            <td>F/mes</td>
+                            <td>T/mes</td>
+                        </tr>
+                    </table>
+                    <table ng-show="checktableShow(2)" class="table table-bordered table-hover">
+                        <tr>
+                            <th><a href="" ng-click="reverse=!reverse;order('head1', reverse)">Fondo</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('head2', reverse)">Categoria</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('head3', reverse)">Div</a></th>
+                            <th><a href="">Peso</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('head4', reverse)">C/V</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('head5', reverse)">Marg</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('head6', reverse)">Mom</a></th>
+                            <th><a href="">{{anioActual}}</a></th>
+                            <th><a href="">Fecha</a></th>
+                        </tr>
+                        <tr ng-repeat="fondo in cartera | orderBy:predicate:reverse | filter:buscarFondos"
+                            ng-class="{momentum : fondo.peso > 0}"
+                            ng-click="selectItem($event, $index)" ng-context-menu="menuOptions">
+                            <td>{{ fondo.head1 }}</td>
+                            <td>{{ fondo.head2 }}</td>
+                            <td>{{ fondo.head3 }}</td>
+                            <td> peso</td>
+                            <td ng-class="{comprar : fondo.head4 != 'V', vender : fondo.head4 == 'V'}"> {{ fondo.head4
+                                }}
+                            </td>
+                            <td>{{ fondo.head5 }}</td>
+                            <td>{{ fondo.head6 }}</td>
+                            <td ng-class="{perdida : fondo.head10.charAt(0) == '-', beneficio : fondo.head10.chartAt(0) != '-'}">
+                                {{ fondo.head10 }}
+                            </td>
+                        </tr>
+                    </table>
+                    <table ng-show="checktableShow(3)" class="table table-bordered table-hover">
+                        <tr>
+                            <th><a href="" ng-click="reverse=!reverse;order('Fondo', reverse)">Fondo</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('Categoria', reverse)">Categoria</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('Div', reverse)">Div</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('Peso', reverse)">Peso</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('CV', reverse)">C/V</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('Marg', reverse)">Marg</a></th>
+                            <th><a href="" ng-click="reverse=!reverse;order('Mom', reverse)">Mom</a></th>
+                        </tr>
+                        <tr>
+                            <td>Fondo</td>
+                            <td>Catregoria</td>
+                            <td>Div</td>
+                            <td>Peso;vil</td>
+                            <td>C/V</td>
+                            <td>Marg</td>
+                            <td>Mom</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+
+<!-- Modules -->
+<script src="js/app.js"></script>
+
+<!-- Controllers -->
+<script src="js/controllers/MegafundController.js"></script>
+
+<!-- Services -->
+<script src="js/services/datosBD.js"></script>
+<script src="js/util/utilCSV.js"></script>
+<script src="js/directives/grafica.js"></script>
+<script src="js/directives/contextMenu.js"></script>
+</body>
+</html>

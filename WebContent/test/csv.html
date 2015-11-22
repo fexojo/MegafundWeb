@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>CSV to JSON</title>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myAppCtrl">
+
+    <p>Var_X: {{ var_xx }}    </p>
+    <table style="width:100%">
+        <tr ng-repeat="x in var_x">
+            <td> {{ x.head1 }}</td>
+            <td> {{ x.head2 }}</td>
+            <td> {{ x.head3 }}</td>
+            <td> {{ x.head4 }}</td>
+            <td> {{ x.head5 }}</td>
+            <td> {{ x.head6 }}</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+	function CSV2JSON(csv, headers) {
+	    //var lines = csv.split("\n");
+	    var lines = csv.split(/\r\n/|/\n);
+	    var objArray = [];
+	
+	    for (var i = 0; i < lines.length; i++) {
+	        var obj = {};
+	        var currentline = lines[i].split("|");
+	
+	        for (var j = 0; j < currentline.length; j++) {
+	            obj[headers[j]] = currentline[j];
+	            /*
+	            if (i == 0 && j == 0){
+	              	alert(headers[0]);
+		            alert(currentline[0]);
+	            }
+	            */
+	        }
+	        objArray.push(obj);
+	    }
+	
+	    //return JSON.stringify(objArray);
+	    return objArray; //JavaScript object
+	}
+	    
+    var app = angular.module('myApp', []);
+    app.controller('myAppCtrl', function ($scope, $log, $http) {
+        var headers = ["head1", "head2", "head3", "head4", "head5", "head6", "head7", "head8", "head9", "head10", "head11", "head12", "head13", "head14", "head15", "head16", "head17", "head18", "head19", "head20"];
+
+        var uri = "http://localhost:8085/favoritos/carteras";//http://localhost:8085/monitor/Renta-4-Eurasia-Small-Top-2/grafica"
+
+        $http.get(uri).success(function (response) {
+        	alert(response);
+            $scope.var_x = CSV2JSON(response, headers)
+        });
+
+    });
+</script>
+</body>
+</html>

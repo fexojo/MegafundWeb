@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-lock fa-fw"></i>Fondo para mantenerse en
+            liquidez
+        </h3>
+    </div>
+    <div class="panel-body">
+        <form name="fRefugio">
+            <table class="table table-condensed">
+                <tr>
+                    <td>Rentabilidad anual antes de la creación del fondo</td>
+                    <td><select ng-model='annualProfitSelected'
+                                ng-options='annualProfit for annualProfit in annualProfitArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Valor especifico</td>
+                    <td><input type="number" ng-model='totalProfit' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tipo de cobertura</td>
+                    <td><select ng-model='hedgingTypeSelected'
+                                ng-options='hedgingType for hedgingType in hedgingTypeArr'></select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <button ng-click="guardarRefugio()"
+                ng-disabled="fRefugio.$pristine || fRefugio.$invalid"
+                class="btn btn-primary">
+            Guardar
+        </button>
+        <button ng-click="descartar()" ng-disabled="fRefugio.$pristine" class="btn btn-primary">
+            Descartar
+        </button>
+    </div>
+</div>

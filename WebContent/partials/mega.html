@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-sliders fa-fw"></i> Parametros para calcular el
+            Ratio Megafund (columna Mega) </h3>
+    </div>
+    <div class="panel-body">
+        <form name="fMega">
+            <table class="table table-condensed">
+                <tr>
+                    <td>Mega =</td>
+                    <td><select ng-model='megaSelected'
+                                ng-options='mega for mega in megaArr'></select> *
+                    </td>
+                    <td style="left: 50%"> 1/100</td>
+                    <td>*</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>(Rentabilidad 3A *</td>
+                    <td><input type="number" ng-model='profit3A' required/>
+                    </td>
+                    <td>+</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> Rentabilidad 5A *</td>
+                    <td><input type="number" ng-model='profit5A' required/>
+                    </td>
+                    <td>+</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> Rentabilidad 10A *</td>
+                    <td><input type="number" ng-model='profit10A' required/>
+                    </td>
+                    <td>+</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> Rentabilidad Total *</td>
+                    <td><input type="number" ng-model='totalProfit' required/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <button ng-click="guardarMega()"
+                ng-disabled="fMega.$pristine || fMega.$invalid"
+                class="btn btn-primary">
+            Guardar
+        </button>
+        <button ng-click="descartar()" ng-disabled="fMega.$pristine" class="btn btn-primary">
+            Descartar
+        </button>
+    </div>
+</div>

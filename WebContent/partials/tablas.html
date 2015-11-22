@@ -1,0 +1,83 @@
+<div class="table-responsive">
+    <table ng-show="checktableShow(1)"
+           class="table table-bordered table-hover table-striped">
+        <tr>
+            <th><a href="">Fecha</a></th>
+            <th><a href="">VL</a></th>
+            <th><a href="">Fondo</a></th>
+            <th><a href="">M. Móvil</a></th>
+            <th><a href="">Timing</a></th>
+            <th><a href="">C/V</a></th>
+            <th><a href="">Marg</a></th>
+            <th><a href="">Mom</a></th>
+            <th><a href="">F/mes</a></th>
+            <th><a href="">T/mes</a></th>
+        </tr>
+        <tr>
+            <td>Fecha</td>
+            <td>VL</td>
+            <td>Fondo</td>
+            <td>M. Móvil</td>
+            <td>Timing</td>
+            <td>C/V</td>
+            <td>Marg</td>
+            <td>Mom</td>
+            <td>F/mes</td>
+            <td>T/mes</td>
+        </tr>
+    </table>
+    <table ng-show="checktableShow(2)" class="table table-bordered table-hover table-striped">
+        <tr>
+            <th><a href="" ng-click="reverse=!reverse;order('head1', reverse)">Fondo</a>
+            </th>
+            <th><a href="" ng-click="reverse=!reverse;order('head2', reverse)">Categoria</a>
+            </th>
+            <th><a href="" ng-click="reverse=!reverse;order('head3', reverse)">Div</a></th>
+            <th><a href="">Peso</a></th>
+            <th><a href="" ng-click="reverse=!reverse;order('head4', reverse)">C/V</a></th>
+            <th><a href="" ng-click="reverse=!reverse;order('head5', reverse)">Marg</a></th>
+            <th><a href="" ng-click="reverse=!reverse;order('head6', reverse)">Mom</a></th>
+            <th><a href="">{{anioActual}}</a></th>
+            <th><a href="">Fecha</a></th>
+        </tr>
+        <tr ng-repeat="fondo in cartera | filter:{ head1:stockName }:false"
+            ng-class="{momentum : fondo.peso > 0}"
+            ng-click="selectItem($event, $index)" ng-context-menu="menuOptions">
+            <td>{{ fondo.head2 }}</td>
+            <td>{{ fondo.head3 }}</td>
+            <td>{{ fondo.head4 }}</td>
+            <td> peso</td>
+            <td ng-class="{comprar : fondo.head5 != 'V', vender : fondo.head5 == 'V'}"> {{
+                fondo.head5 }}
+            </td>
+            <td>{{ fondo.head6 }}</td>
+            <td>{{ fondo.head7 }}</td>
+            <td ng-class="{perdida : fondo.head10.charAt(0) == '-', beneficio : fondo.head10.chartAt(0) != '-'}">
+                {{ fondo.head10 }}
+            </td>
+        </tr>
+    </table>
+    <table ng-show="checktableShow(3)" class="table table-bordered table-hover">
+        <tr>
+            <th><a href="" ng-click="reverse=!reverse;order('Fondo', reverse)">Fondo</a>
+            </th>
+            <th><a href=""
+                   ng-click="reverse=!reverse;order('Categoria', reverse)">Categoria</a>
+            </th>
+            <th><a href="" ng-click="reverse=!reverse;order('Div', reverse)">Div</a></th>
+            <th><a href="" ng-click="reverse=!reverse;order('Peso', reverse)">Peso</a></th>
+            <th><a href="" ng-click="reverse=!reverse;order('CV', reverse)">C/V</a></th>
+            <th><a href="" ng-click="reverse=!reverse;order('Marg', reverse)">Marg</a></th>
+            <th><a href="" ng-click="reverse=!reverse;order('Mom', reverse)">Mom</a></th>
+        </tr>
+        <tr>
+            <td>Fondo</td>
+            <td>Catregoria</td>
+            <td>Div</td>
+            <td>Peso;vil</td>
+            <td>C/V</td>
+            <td>Marg</td>
+            <td>Mom</td>
+        </tr>
+    </table>
+</div>

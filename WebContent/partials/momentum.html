@@ -1,0 +1,100 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-sliders fa-fw"></i> Parametros del algoritmo del
+            Momentum
+        </h3>
+    </div>
+    <div class="panel-body">
+        <form name="fMomentum">
+            <table class="table table-condensed">
+                <tr>
+                    <td>Estrategia de rotación</td>
+                    <td><select ng-model='rotationSelected'
+                                ng-options='rotation for rotation in rotationArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Calculo del momentum fondos (meses)</td>
+                    <td><select ng-model='calcFundSelected'
+                                ng-options='calcFund for calcFund in calcMomentumArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Calculo del momentum zonas (meses)</td>
+                    <td><select ng-model='calcZoneSelected'
+                                ng-options='calcZone for calcZone in calcMomentumArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Número de fondos seleccionados</td>
+                    <td><select ng-model='fundNumberSelected'
+                                ng-options='fundNumber for fundNumber in fundNumberArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fondos mostrados tabla Evolución</td>
+                    <td><select ng-model='tEvolutionSelected'
+                                ng-options='tEvolution for tEvolution in tEvolutionArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Rotación fondos periodicidad Diaria (días)</td>
+                    <td>
+                        <input type="number" ng-model='dayRotation' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Rotación fondos periodicidad Semanal (semanas)</td>
+                    <td>
+                        <input type="number" ng-model='weekRotation' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Rotación fondos periodicidad Mensual (meses)</td>
+                    <td>
+                        <input type="number" ng-model='monthRotation' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Margen mínimo para rotar fondos (absoluto + %momentum)</td>
+                    <td>
+                        <input type="number" size="2" ng-model='absolutEdge' required/> +
+                        <input type="number" size="2" ng-model='edge' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Porcentaje máximo de fondos en venta</td>
+                    <td>
+                        <input type="number" ng-model='maxPercent' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Momentum máximo</td>
+                    <td>
+                        <input type="number" ng-model='maxMomentum' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Momentum promedio máximo (media móvil 3 meses)</td>
+                    <td>
+                        <input type="number" ng-model='maxMomentumAverage' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Actualizar Fondos</td>
+                    <td><select ng-model='actFundSelected'
+                                ng-options='actFund for actFund in actFundArr'></select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <button ng-click="guardarMomentum()"
+                ng-disabled="fMomentum.$pristine || fMomentum.$invalid"
+                class="btn btn-primary">
+            Guardar
+        </button>
+        <button ng-click="descartar()" ng-disabled="fMomentum.$pristine"
+                class="btn btn-primary">Descartar
+        </button>
+    </div>
+</div>

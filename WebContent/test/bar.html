@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load('visualization', '1', {packages: ['corechart', 'bar']});
+
+        google.setOnLoadCallback(drawAnnotations);
+        function drawAnnotations() {
+            var data = google.visualization.arrayToDataTable([
+                ['Ciudades', '2010 Population', {type: 'string', role: 'annotation'}],
+                ['New York City, NY', 8175000, '8.1M'],
+                ['Los Angeles, CA', 3792000, '3.8M'],
+                ['Chicago, IL', 2695000, '2.7M'],
+                ['Houston, TX', 2099000, '2.1M'],
+                ['Philadelphia, PA', 1526000, '1.5M']
+            ]);
+
+            var options = {
+                title: 'Population of Largest U.S. Cities',
+                chartArea: {width: '50%'},
+                legend: {position: 'none'},
+                annotations: {
+                    alwaysOutside: true,
+                    textStyle: {
+                        fontSize: 12,
+                        auraColor: 'none',
+                        color: '#555'
+                    },
+                    boxStyle: {
+                        stroke: '#ccc',
+                        strokeWidth: 1,
+                        gradient: {
+                            color1: '#f3e5f5',
+                            color2: '#f3e5f5',
+                            //x1: '0%', y1: '0%',
+                            x1: '100%', y1: '100%'
+                        }
+                    }
+                }
+            };
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+
+<body>
+<div id="top_x_div" style="width: 900px; height: 500px;"></div>
+<div id="chart_div"></div>
+</body>
+</html>

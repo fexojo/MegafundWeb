@@ -1,0 +1,123 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-cog fa-fw"></i> Configuración General</h3>
+    </div>
+    <div class="panel-body">
+        <form name="fGeneral">
+            <table class="table table-condensed">
+                <tr>
+                    <td>Fecha de inicio de monitorización</td>
+                    <td><input type="checkbox" ng-model="checkDate1"></td>
+                    <td class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker1').datetimepicker({format: 'DD/MM/YYYY'});
+                            });
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fecha de fin de monitorización</td>
+                    <td><input type="checkbox" ng-model="checkDate"></td>
+                    <td class='input-group date' id='datetimepicker2'>
+                        <input type='text' class="form-control"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker2').datetimepicker({format: 'DD/MM/YYYY'});
+                            });
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Pais</td>
+                    <td></td>
+                    <td><select ng-model='countrySelected'
+                                ng-options='country for country in countryArr'></select></td>
+                </tr>
+                <tr>
+                    <td>Moneda</td>
+                    <td></td>
+                    <td><select ng-model='coinSelected'
+                                ng-options='coin for coin in coinArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Idioma</td>
+                    <td></td>
+                    <td><select ng-model='idiomSelected'
+                                ng-options='idiom for idiom in idiomArr'></select></td>
+                </tr>
+                <tr>
+                    <td>Dias de retardo hasta la venta del fondo saliente</td>
+                    <td></td>
+                    <td><select ng-model='delaySelected'
+                                ng-options='delay for delay in delayArr'></select></td>
+                </tr>
+                <tr>
+                    <td>Retardo adicional hasta la compra del fondo entrante</td>
+                    <td></td>
+                    <td><select ng-model='delayPlusSelected'
+                                ng-options='delayPlus for delayPlus in delayPlusArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Comisión por cambio de divisa (%)</td>
+                    <td></td>
+                    <td>
+                        <input type="number" ng-model='task' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Retraso máximo VL (dias laborables y horas)</td>
+                    <td></td>
+                    <td>
+                        <select ng-model='delayLabSelected'
+                                ng-options='delayLab for delayLab in delayLabArr'></select>
+                        <select ng-model='delayTimeSelected'
+                                ng-options='delayTime for delayTime in delayTimeArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Divisa de fondos en carteras automáticas</td>
+                    <td></td>
+                    <td><select ng-model='currencyAutStockSelected'
+                                ng-options='currencyAutStock for currencyAutStock in currencyAutStockArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Copiar cabecera de tablas al portapapeles</td>
+                    <td></td>
+                    <td><select ng-model='copyHeadSelected'
+                                ng-options='copyHead for copyHead in siNoArr'></select></td>
+                </tr>
+                <tr>
+                    <td>Permitir que se pueda cambiar el tamaño de la ventana</td>
+                    <td></td>
+                    <td><select ng-model='resizeSelected'
+                                ng-options='resize for resize in siNoArr'></select></td>
+                </tr>
+                <tr>
+                    <td>Tipo de histórico descargado de Morningstar</td>
+                    <td></td>
+                    <td><select ng-model='histMSSelected'
+                                ng-options='histMS for histMS in histMSArr'></select></td>
+                </tr>
+            </table>
+        </form>
+        <button ng-click="guardarGeneral()"
+                ng-disabled="fGeneral.$pristine || fGeneral.$invalid"
+                class="btn btn-primary">
+            Guardar
+        </button>
+        <button ng-click="descartar()" ng-disabled="fGeneral.$pristine" class="btn btn-primary">
+            Descartar
+        </button>
+    </div>
+</div>

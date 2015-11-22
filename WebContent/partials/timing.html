@@ -1,0 +1,86 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-sliders fa-fw"></i> Parametros del algoritmo del
+            timing
+        </h3>
+    </div>
+    <div class="panel-body">
+        <form name="fTiming">
+            <table class="table table-condensed">
+                <tr>
+                    <td>Periodicidad</td>
+                    <td><select ng-model='periodicitySelected'
+                                ng-options='periodicity for periodicity in periodicityArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Algoritmo</td>
+                    <td><select ng-model='algorithmSelected'
+                                ng-options='algorithm for algorithm in algorithmArr'></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Periodo media móvil normal</td>
+                    <td>
+                        <input type="number" ng-model='periocity' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Periodo media móvil corta</td>
+                    <td>
+                        <input type="number" ng-model='shortPeriocity' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Periodo para calcular porcentaje de subida</td>
+                    <td>
+                        <input type="number" ng-model='upPercentage' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Periodo para calcular porcentaje de bajada</td>
+                    <td>
+                        <input type="number" ng-model='downPercentage' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Subida para cambiar a media móvil corta (%)</td>
+                    <td>
+                        <input type="number" ng-model='upShortMedia' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Caída para cambiar a media móvil corta (%)</td>
+                    <td>
+                        <input type="number" ng-model='downShortMedia' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Margen mínimo para realizar trading (%)</td>
+                    <td>
+                        <input type="number" ng-model='marginDoTrading' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Periodo de estabilidad para realizar trading</td>
+                    <td>
+                        <input type="number" ng-model='stabilityDoTrading' required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Periodo de inactividad para realizar trading</td>
+                    <td>
+                        <input type="number" ng-model='inactavityDoTrading' required/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <button ng-click="guardarTiming()" ng-disabled="fTiming.$pristine || fTiming.$invalid"
+                class="btn btn-primary">
+            Guardar
+        </button>
+        <button ng-click="descartar()" ng-disabled="fTiming.$pristine" class="btn btn-primary">
+            Descartar
+        </button>
+    </div>
+</div>

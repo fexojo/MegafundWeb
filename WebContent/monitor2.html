@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="css/main.css" rel="stylesheet"/>
+
+    <!--link rel="stylesheet" href="js/shared3/bootstrap.min.css">
+        <script src="js/shared3/jquery-1.11.3.min.js"></script>
+        <script src="js/shared3/bootstrap.min.js"></script>
+        <script	src="js/shared3/angular.min.js"></script-->
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+
+    <script src="//code.angularjs.org/1.2.19/i18n/angular-locale_es-es.js"></script>
+    
+    <meta charset="UTF-8">
+    <title>MegaFund Web</title>
+</head>
+
+<body ng-app="myApp" ng-controller="monitorController">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Megafund</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input ng-model="buscarFondos.head1" type="text" class="form-control" placeholder="Buscar fondo por
+                nombre...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="loading-dialog" data-loading> <img src="images/ajax-loader.gif" width="30" height="30" />Cargando datos... </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 ng-click="selectItem($event, $index)" ng-context-menu="stockOptions" class="panel-title"><a href="">{{stockName}}</a>{{fundName}}</h3>
+                    </div>
+                    <div class="panel-body">
+                    	<div class="table-responsive">
+                            <div google-chart="AnnotationChart" ng-model="dataModel.visual" trigger="activateChart"></div>
+                      	    <!--ann-chart data="chartData" title="{{chartTitle}}" width="{{chartWidth}}"
+                      	             height="{{chartHeight}}"></ann-chart-->
+                    	</div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-balance-scale fa-fw"></i> Rentabilidades Anuales</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <td></td>
+                                <th ng-repeat="rentabilidad in rentabilidades">{{
+                                    rentabilidad.c}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Timing</th>
+                                <td ng-repeat="rentabilidad in rentabilidades"
+                                    ng-class="{comprar : rentabilidad.t < 0, vender : rentabilidad.t >= 0}">
+                                    {{ rentabilidad.t }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Fondo</th>
+                                <td ng-repeat="rentabilidad in rentabilidades"
+                                    ng-class="{comprar : rentabilidad.f < 0, vender : rentabilidad.f >= 0}">
+                                    {{ rentabilidad.f }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-area-chart fa-fw"></i> Estadísticas</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <td></td>
+                                <th ng-repeat="rentabilidad in rentabilidades">{{
+                                    rentabilidad.c}}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Timing</th>
+                                <td ng-repeat="rentabilidad in rentabilidades"
+                                    ng-class="{comprar : rentabilidad.t < 0, vender : rentabilidad.t >= 0}">
+                                    {{ rentabilidad.t }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Fondo</th>
+                                <td ng-repeat="rentabilidad in rentabilidades"
+                                    ng-class="{comprar : rentabilidad.f < 0, vender : rentabilidad.f >= 0}">
+                                    {{ rentabilidad.f }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <button type="button" class="btn btn-default" ng-click="activarTabla(0)"><i
+                                class="fa fa-university"></i> Trading
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="activarTabla(1)"><i
+                                class="fa fa-history"></i> Histórico
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="activarTabla(2)"><i
+                                class="fa fa-folder-open-o fa-fw"></i> Componentes
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="activarTabla(3)"><i
+                                class="fa fa-line-chart fa-fw"></i> Evolución
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="activarTabla(4)"><i
+                                class="fa fa-bar-chart fa-fw"></i> Estadística
+                        </button>
+                    </div>
+                    <div class="panel-body" ng-include src="'partials/tablas.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modules -->
+<script src="js/app.js"></script>
+
+<!-- Controllers -->
+<script src="js/controllers/monitorController2.js"></script>
+
+<!-- Services -->
+<script src="js/services/datosBD.js"></script>
+<script src="js/util/utilCSV.js"></script>
+<script src="js/directives/googleChart.js"></script>
+<script src="js/directives/contextMenu.js"></script>
+<script src="js/directives/loading.js"></script>
+</body>
+</html>
